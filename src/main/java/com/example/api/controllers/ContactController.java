@@ -34,7 +34,7 @@ public ResponseEntity<Page<ContactDTO>> listByStatus(
 ) {
     return ResponseEntity.ok(service.findByStatusOrAll(isActive, pageable));
 }
-
+//test
     @PutMapping("/{id}")
     public ResponseEntity<ContactDTO> update(@PathVariable Long id, @RequestBody @Valid ContactRequestDTO dto) {
         ContactDTO updatedContact = service.update(id, dto);
