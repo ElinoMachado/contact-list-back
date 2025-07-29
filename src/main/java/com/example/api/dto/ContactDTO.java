@@ -1,5 +1,7 @@
 package com.example.api.dto;
 
+import java.time.LocalDateTime;
+
 import lombok.*;
 
 @Data
@@ -9,6 +11,7 @@ public class ContactDTO {
     private String email;
     private String mobile;
     private String phone;
+    private LocalDateTime createdAt;
     private boolean isFavorite;
     private boolean isActive;
 

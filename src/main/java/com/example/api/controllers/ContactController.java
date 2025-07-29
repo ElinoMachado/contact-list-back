@@ -27,14 +27,19 @@ public class ContactController {
         return service.create(dto);
     }
 
-@GetMapping
-public ResponseEntity<Page<ContactDTO>> listByStatus(
-        @RequestParam(required = false) String isActive,
+   @GetMapping
+public ResponseEntity<Page<ContactDTO>> listByFilters(
+        @RequestParam(required = false) String search,
         @PageableDefault(page = 0, size = 10, sort = "name") Pageable pageable
 ) {
-    return ResponseEntity.ok(service.findByStatusOrAll(isActive, pageable));
+    return ResponseEntity.ok(service.findByFilters(search, pageable));
 }
-//test
+    @GetMapping("/{id}")
+    public ResponseEntity<ContactDTO> findById(@PathVariable Long id) {
+        ContactDTO dto = service.findById(id);
+        return ResponseEntity.ok(dto);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<ContactDTO> update(@PathVariable Long id, @RequestBody @Valid ContactRequestDTO dto) {
         ContactDTO updatedContact = service.update(id, dto);

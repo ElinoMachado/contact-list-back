@@ -19,6 +19,7 @@ private final ContactRepository repository;
 
     @Transactional
     public ContactDTO create(ContactRequestDTO dto) {
+        System.out.println(dto);
         if (repository.existsByMobile(dto.getMobile())) {
             throw new ContactAlreadyExistsException("Contact with mobile number already exists.");
         }
@@ -29,7 +30,7 @@ private final ContactRepository repository;
                 .mobile(dto.getMobile())
                 .phone(dto.getPhone())
                 .isFavorite(dto.isFavorite() ? "Y" : "N")
-                .isActive("Y")
+                .isActive(dto.isActive() ? "Y" : "N")
                 .createdAt(LocalDateTime.now())
                 .build();
 
@@ -37,17 +38,17 @@ private final ContactRepository repository;
         return toDTO(contact);
     }
 
-public Page<ContactDTO> findByStatusOrAll(String isActive, Pageable pageable) {
-    Page<Contact> result;
+ public Page<ContactDTO> findByFilters(String search, Pageable pageable) {
+    Page<Contact> page = repository.findWithFilters(search, pageable);
+    return page.map(this::toDTO);
+}
+    public ContactDTO findById(Long id) {
+        Contact contact = repository.findById(id)
+                .orElseThrow(() -> new ContactNotFoundException(id));
 
-    if (isActive == null) {
-        result = repository.findAll(pageable);
-    } else {
-        result = repository.findByIsActive(isActive, pageable);
+        return toDTO(contact);
     }
 
-    return result.map(this::toDTO);
-}
     @Transactional
     public void deactivate(Long id) {
         Contact contact = repository.findById(id)
@@ -63,7 +64,14 @@ public Page<ContactDTO> findByStatusOrAll(String isActive, Pageable pageable) {
         contact.setName(dto.getName());
         contact.setEmail(dto.getEmail());
         contact.setPhone(dto.getPhone());
+        contact.setMobile(dto.getMobile());
         contact.setIsFavorite(dto.isFavorite() ? "Y" : "N");
+        contact.setIsActive(dto.isActive() ? "Y" : "N");
+        //esse print deve mostrar o valor do objeto contact
+        System.out.println(dto);
+
+        contact = repository.save(contact);
+
         return toDTO(contact);
     }
 
@@ -76,6 +84,7 @@ public Page<ContactDTO> findByStatusOrAll(String isActive, Pageable pageable) {
         dto.setPhone(c.getPhone());
         dto.setIsFavorite("Y".equals(c.getIsFavorite()));
         dto.setIsActive("Y".equals(c.getIsActive()));
+        dto.setCreatedAt(c.getCreatedAt());
         return dto;
     }
 }

@@ -1,6 +1,9 @@
 package com.example.api.dto;
 
 import lombok.*;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.validation.constraints.*;
 
 @Data
@@ -19,6 +22,9 @@ public class ContactRequestDTO {
     @Size(max = 10)
     private String phone;
 
-    private boolean isFavorite = false;
-    private boolean isActive = false;
+     @JsonProperty("isFavorite")
+    private boolean favorite = false;
+
+    @JsonProperty("isActive")
+    private boolean active = false;
 }
