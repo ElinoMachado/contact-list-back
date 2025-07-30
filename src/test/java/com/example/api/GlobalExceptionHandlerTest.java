@@ -12,7 +12,6 @@ import com.example.api.exception.GlobalExceptionHandler;
 
 import org.springframework.validation.*;
 
-import java.time.LocalDateTime;
 import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;

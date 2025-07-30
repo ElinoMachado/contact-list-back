@@ -19,7 +19,6 @@ private final ContactRepository repository;
 
     @Transactional
     public ContactDTO create(ContactRequestDTO dto) {
-        System.out.println(dto);
         if (repository.existsByMobile(dto.getMobile())) {
             throw new ContactAlreadyExistsException("Contact with mobile number already exists.");
         }
@@ -67,8 +66,6 @@ private final ContactRepository repository;
         contact.setMobile(dto.getMobile());
         contact.setIsFavorite(dto.isFavorite() ? "Y" : "N");
         contact.setIsActive(dto.isActive() ? "Y" : "N");
-        //esse print deve mostrar o valor do objeto contact
-        System.out.println(dto);
 
         contact = repository.save(contact);
 

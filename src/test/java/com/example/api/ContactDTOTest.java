@@ -13,48 +13,30 @@ class ContactDTOTest {
     @Test
     void testGettersAndSetters() {
         ContactDTO dto = new ContactDTO();
-
-        // Testa set e get do id
         dto.setId(123L);
         assertEquals(123L, dto.getId());
-
-        // Testa set e get do name
         dto.setName("John Doe");
         assertEquals("John Doe", dto.getName());
-
-        // Testa set e get do email
         dto.setEmail("john@example.com");
         assertEquals("john@example.com", dto.getEmail());
-
-        // Testa set e get do mobile
         dto.setMobile("123456789");
         assertEquals("123456789", dto.getMobile());
-
-        // Testa set e get do phone
         dto.setPhone("987654321");
         assertEquals("987654321", dto.getPhone());
-
-        // Testa set e get do createdAt
         LocalDateTime now = LocalDateTime.now();
         dto.setCreatedAt(now);
         assertEquals(now, dto.getCreatedAt());
-
-        // Testa set e get do isActive via métodos customizados
         dto.setIsActive(true);
         assertTrue(dto.getIsActive());
-
         dto.setIsActive(false);
         assertFalse(dto.getIsActive());
-
-        // Testa set e get do isFavorite via métodos customizados
         dto.setIsFavorite(true);
         assertTrue(dto.getIsFavorite());
-
         dto.setIsFavorite(false);
         assertFalse(dto.getIsFavorite());
     }
     @Test
-void testEqualsAndHashCode() {
+    void testEqualsAndHashCode() {
     LocalDateTime now = LocalDateTime.now();
 
     ContactDTO dto1 = new ContactDTO();
@@ -81,10 +63,10 @@ void testEqualsAndHashCode() {
     dto3.setId(2L);
     dto3.setName("Bob");
 
-    assertEquals(dto1, dto2);                      // Mesmo conteúdo
-    assertNotEquals(dto1, dto3);                   // Conteúdo diferente
+    assertEquals(dto1, dto2);                      
+    assertNotEquals(dto1, dto3);                  
 
-    assertEquals(dto1.hashCode(), dto2.hashCode()); // Mesmo conteúdo = mesmo hash
+    assertEquals(dto1.hashCode(), dto2.hashCode()); 
     assertNotEquals(dto1.hashCode(), dto3.hashCode());
 }
 

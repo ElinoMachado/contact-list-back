@@ -62,7 +62,7 @@ class ContactServiceTest {
         assertEquals("Y", saved.getIsActive());
         assertNotNull(saved.getCreatedAt());
 
-        assertEquals(saved.getId(), result.getId()); // ID null here since not set in mock, that's OK
+        assertEquals(saved.getId(), result.getId());
         assertEquals(saved.getName(), result.getName());
         assertEquals(saved.getEmail(), result.getEmail());
         assertEquals(saved.getMobile(), result.getMobile());
@@ -223,15 +223,15 @@ void create_NewContact_FavoriteAndActiveFalse() {
     dto.setEmail("john@example.com");
     dto.setMobile("12345678901");
     dto.setPhone("1234567890");
-    dto.setFavorite(false);  // aqui
-    dto.setActive(false);    // aqui
+    dto.setFavorite(false);  
+    dto.setActive(false);    
 
     when(repository.existsByMobile(dto.getMobile())).thenReturn(false);
     when(repository.save(any(Contact.class))).thenAnswer(i -> i.getArgument(0));
 
     ContactDTO result = service.create(dto);
 
-    assertEquals("N", result.getIsFavorite() ? "Y" : "N".toUpperCase());  // false esperado
+    assertEquals("N", result.getIsFavorite() ? "Y" : "N".toUpperCase()); 
     assertEquals("N", result.getIsActive() ? "Y" : "N".toUpperCase());
     assertFalse(result.getIsFavorite());
     assertFalse(result.getIsActive());
@@ -254,8 +254,8 @@ void update_ExistingContact_FavoriteAndActiveFalse() {
     dto.setEmail("new@example.com");
     dto.setMobile("55566677788");
     dto.setPhone("9998887777");
-    dto.setFavorite(false);  // aqui
-    dto.setActive(false);    // aqui
+    dto.setFavorite(false);  
+    dto.setActive(false);    
 
     when(repository.findById(5L)).thenReturn(Optional.of(contact));
     when(repository.save(contact)).thenAnswer(i -> i.getArgument(0));

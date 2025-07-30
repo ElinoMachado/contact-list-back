@@ -23,8 +23,8 @@ class ContactRequestDTOTest {
         ContactRequestDTO dto = new ContactRequestDTO();
         dto.setName("John Doe");
         dto.setEmail("john@example.com");
-        dto.setMobile("12345678901"); // 11 chars
-        dto.setPhone("1234567890");   // max 10 chars
+        dto.setMobile("12345678901"); 
+        dto.setPhone("1234567890");   
         dto.setActive(true);
         dto.setFavorite(true);
 
@@ -42,7 +42,7 @@ class ContactRequestDTOTest {
     @Test
     void testInvalidDTO_BlankName() {
         ContactRequestDTO dto = new ContactRequestDTO();
-        dto.setName(""); // blank name
+        dto.setName("");
         dto.setEmail("john@example.com");
         dto.setMobile("12345678901");
         dto.setPhone("1234567890");
@@ -70,7 +70,7 @@ class ContactRequestDTOTest {
         ContactRequestDTO dto = new ContactRequestDTO();
         dto.setName("John Doe");
         dto.setEmail("john@example.com");
-        dto.setMobile("12345"); // too short
+        dto.setMobile("12345");
         dto.setPhone("1234567890");
 
         Set<ConstraintViolation<ContactRequestDTO>> violations = validator.validate(dto);
@@ -84,7 +84,7 @@ class ContactRequestDTOTest {
         dto.setName("John Doe");
         dto.setEmail("john@example.com");
         dto.setMobile("12345678901");
-        dto.setPhone("123456789012345"); // longer than 10
+        dto.setPhone("123456789012345"); 
 
         Set<ConstraintViolation<ContactRequestDTO>> violations = validator.validate(dto);
         assertFalse(violations.isEmpty());
@@ -115,12 +115,8 @@ void testEqualsAndHashCode() {
     dto3.setPhone("123");
     dto3.setActive(false);
     dto3.setFavorite(false);
-
-    // equals
     assertEquals(dto1, dto2);
     assertNotEquals(dto1, dto3);
-
-    // hashCode
     assertEquals(dto1.hashCode(), dto2.hashCode());
     assertNotEquals(dto1.hashCode(), dto3.hashCode());
 }
