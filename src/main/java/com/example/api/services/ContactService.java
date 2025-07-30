@@ -37,10 +37,11 @@ private final ContactRepository repository;
         return toDTO(contact);
     }
 
- public Page<ContactDTO> findByFilters(String search, Pageable pageable) {
-    Page<Contact> page = repository.findWithFilters(search, pageable);
-    return page.map(this::toDTO);
-}
+    public Page<ContactDTO> findByFilters(String search, Pageable pageable) {
+        String safeSearch = (search == null) ? "" : search;
+        Page<Contact> page = repository.findWithFilters(safeSearch, pageable);
+        return page.map(this::toDTO);
+    }
     public ContactDTO findById(Long id) {
         Contact contact = repository.findById(id)
                 .orElseThrow(() -> new ContactNotFoundException(id));
