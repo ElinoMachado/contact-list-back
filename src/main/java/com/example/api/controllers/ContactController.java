@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,9 +24,12 @@ public class ContactController {
     }
 
     @PostMapping
-    public ContactDTO create(@RequestBody @Valid ContactRequestDTO dto) {
-        return service.create(dto);
-    }
+public ResponseEntity<ContactDTO> create(@RequestBody @Valid ContactRequestDTO dto) {
+    ContactDTO created = service.create(dto);
+    return ResponseEntity
+            .status(HttpStatus.CREATED)
+            .body(created);
+}
 
    @GetMapping
 public ResponseEntity<Page<ContactDTO>> listByFilters(
@@ -47,7 +51,8 @@ public ResponseEntity<Page<ContactDTO>> listByFilters(
     }
 
     @DeleteMapping("/{id}")
-    public void deactivate(@PathVariable Long id) {
-        service.deactivate(id);
-    }
+    public ResponseEntity<Void> deactivate(@PathVariable Long id) {
+    service.deactivate(id);
+    return ResponseEntity.noContent().build();
+}
 }
